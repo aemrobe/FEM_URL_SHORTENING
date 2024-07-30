@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Shortly URL shortening API Challenge</title>
+
+    <!--css file-->
+    <link rel="stylesheet" href="./styles.css" type="text/css" />
+
+    <!--font family-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--font awesome icon-->
+    <script defer src="./fontawesome-free-6.5.2-web/js/solid.js"></script>
+    <script defer src="./fontawesome-free-6.5.2-web/js/brands.js"></script>
+    <script defer src="./fontawesome-free-6.5.2-web/js/fontawesome.js"></script>
+  </head>
+  <body>
+    <header>
+      <!--logo-->
+      <img src="./images/logo.svg" alt="logo" class="logo" />
+
+      <!--menu bar-->
+      <span class="menubar">
+        <i class="fa-solid fa-bars"></i>
+
+        <p class="sr-only">menu</p>
+      </span>
+
+      <!--nav bar-->
+      <nav class="navbar not-open">
+        <ul class="navbar__list-of-links">
+          <li class="navbar__list-item">
+            <a href="#" class="navbar__list-link"> Features</a>
+          </li>
+
+          <li class="navbar__list-item">
+            <a href="#" class="navbar__list-link"> Pricing</a>
+          </li>
+
+          <li class="navbar__list-item">
+            <a href="#" class="navbar__list-link navbar__list-link--resources">
+              Resources</a
+            >
+          </li>
+
+          <li class="navbar__list-item navbar__list-item--login">
+            <a href="#" class="navbar__list-link"> Login</a>
+          </li>
+
+          <li class="navbar__list-item navbar__list-item--signup">
+            <a
+              href="#"
+              class="navbar__list-link navbar__list-link--signUp primay-btn"
+            >
+              Sign Up</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!--main-->
+    <main>
+      <!--hero section-->
+      <div class="hero">
+        <!--hero image container-->
+        <div class="hero-img-container">
+          <img
+            src="./images/illustration-working.svg"
+            alt=""
+            class="hero-img"
+          />
+        </div>
+
+        <!--hero content-->
+        <div class="hero-content">
+          <h1 class="main-title">More than just shorter links</h1>
+
+          <p class="main-text">
+            Build your brand’s recognition and get detailed insights on how your
+            links are performing.
+          </p>
+
+          <button class="main-btn primay-btn">Get Started</button>
+        </div>
+      </div>
+
+      <!--statics section-->
+      <section class="statics horizontaly-center">
+        <div class="statics-container horizontaly-center">
+          <!--shorten link section-->
+          <form action="#" class="shorten-link">
+            <input
+              type="text"
+              name="input link"
+              placeholder="Shorten a link here..."
+              class="shorten-link__input"
+            />
+
+            <button class="primay-btn shorten-link__btn">Shorten It!</button>
+          </form>
+
+          <!--Shorten Link Containier-->
+          <div class="shorten-link-container hidden">
+            <!--Shorten Link-->
+            <div class="shorten-link-container__link">
+              <a class="shorten-link-container__text">
+                https://www.frontendmentor.io
+              </a>
+
+              <a
+                class="shorten-link-container__text shorten-link-container__text--shorten"
+              >
+                https://rel.ink/k4lKyk
+              </a>
+
+              <button class="primay-btn copy-btn copy-btn--black">Copy</button>
+            </div>
+          </div>
+
+          <h2 class="statics__title">Advanced Statistics</h2>
+
+          <p class="statics__text">
+            Track how your links are performing across the web with our advanced
+            statistics dashboard.
+          </p>
+
+          <!--three card section-->
+          <div class="three-card-section">
+            <!--card-->
+            <div class="card card--1">
+              <span class="card__img-container">
+                <img
+                  src="./images/icon-brand-recognition.svg"
+                  alt=""
+                  class="card__img"
+                />
+              </span>
+
+              <h3 class="card__title">Brand Recognition</h3>
+
+              <p class="card__text">
+                Boost your brand recognition with each click. Generic links
+                don’t mean a thing. Branded links help instil confidence in your
+                content.
+              </p>
+            </div>
+
+            <!--card-->
+            <div class="card card--2">
+              <span class="card__img-container">
+                <img
+                  src="./images/icon-detailed-records.svg"
+                  alt=""
+                  class="card__img"
+                />
+              </span>
+
+              <h3 class="card__title">Detailed Records</h3>
+
+              <p class="card__text">
+                Gain insights into who is clicking your links. Knowing when and
+                where people engage with your content helps inform better
+                decisions.
+              </p>
+            </div>
+
+            <!--card-->
+            <div class="card card--3">
+              <span class="card__img-container">
+                <img
+                  src="./images/icon-fully-customizable.svg"
+                  alt=""
+                  class="card__img"
+                />
+              </span>
+
+              <h3 class="card__title">Fully Customizable</h3>
+
+              <p class="card__text">
+                Improve brand awareness and content discoverability through
+                customizable links, supercharging audience engagement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--Boost your link section-->
+      <div class="boost-your-link">
+        <h2 class="boost-your-link__title">Boost your links today</h2>
+
+        <button class="boost-your-link__btn primay-btn">Get Started</button>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__container">
+        <img src="./images/logo-white.svg" alt="logo" class="logo" />
+
+        <!--footer links section-->
+        <div class="footer__links-list">
+          <!--footer features section-->
+          <div class="footer__link-section">
+            <h2 class="footer__link-title">Features</h2>
+
+            <p class="footer__link-text">Link Shortening</p>
+            <p class="footer__link-text">Branded Links</p>
+            <p class="footer__link-text">Analytics</p>
+          </div>
+
+          <!--footer Resources section-->
+          <div class="footer__link-section">
+            <h2 class="footer__link-title">Resources</h2>
+
+            <p class="footer__link-text">Blog</p>
+            <p class="footer__link-text">Developers</p>
+            <p class="footer__link-text">Support</p>
+          </div>
+
+          <!--footer company section-->
+          <div class="footer__link-section">
+            <h2 class="footer__link-title">Company</h2>
+
+            <p class="footer__link-text">About</p>
+            <p class="footer__link-text">Our Team</p>
+            <p class="footer__link-text">Careers</p>
+            <p class="footer__link-text">Contact</p>
+          </div>
+        </div>
+
+        <!--social media icons section-->
+        <ul class="footer__social-media-link-list">
+          <li class="footer__social-media-list-item">
+            <a href="#" class="footer__social-media-link">
+              <img src="./images/icon-facebook.svg" alt="facebook icon" />
+            </a>
+          </li>
+
+          <li class="footer__social-media-list-item">
+            <a href="#" class="footer__social-media-link">
+              <img src="./images/icon-twitter.svg" alt="twitter icon" />
+            </a>
+          </li>
+
+          <li class="footer__social-media-list-item">
+            <a href="#" class="footer__social-media-link">
+              <img src="./images/icon-pinterest.svg" alt="pinterest icon" />
+            </a>
+          </li>
+
+          <li class="footer__social-media-list-item">
+            <a href="#" class="footer__social-media-link">
+              <img src="./images/icon-instagram.svg" alt="pinterest icon" />
+            </a>
+          </li>
+        </ul>
+
+        <div class="attribution">
+          Challenge by
+          <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+            >Frontend Mentor</a
+          >. Coded by <a href="#">Aemro Bekalu</a>.
+        </div>
+      </div>
+    </footer>
+
+    <script src="./scripts.js"></script>
+  </body>
+</html>
