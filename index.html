@@ -106,33 +106,22 @@
         <div class="statics-container horizontaly-center">
           <!--shorten link section-->
           <form action="#" class="shorten-link">
-            <input
-              type="text"
-              name="input link"
-              placeholder="Shorten a link here..."
-              class="shorten-link__input"
-            />
+            <span class="shorten-link__container">
+              <input
+                type="text"
+                name="inputLink"
+                placeholder="Shorten a link here..."
+                class="shorten-link__input"
+              />
+
+              <span class="err hidden">Please add a link</span>
+            </span>
 
             <button class="primay-btn shorten-link__btn">Shorten It!</button>
           </form>
 
           <!--Shorten Link Containier-->
-          <div class="shorten-link-container hidden">
-            <!--Shorten Link-->
-            <div class="shorten-link-container__link">
-              <a class="shorten-link-container__text">
-                https://www.frontendmentor.io
-              </a>
-
-              <a
-                class="shorten-link-container__text shorten-link-container__text--shorten"
-              >
-                https://rel.ink/k4lKyk
-              </a>
-
-              <button class="primay-btn copy-btn copy-btn--black">Copy</button>
-            </div>
-          </div>
+          <div class="shorten-link-container hidden"></div>
 
           <h2 class="statics__title">Advanced Statistics</h2>
 

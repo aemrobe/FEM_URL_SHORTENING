@@ -7,8 +7,10 @@ const socialMediaItemContainer = document.querySelector(
   ".footer__social-media-link-list"
 );
 const shortLinkForm = document.querySelector(".shorten-link");
+const shortLinkInput = document.querySelector(".shorten-link__input");
 const shortLinkContainer = document.querySelector(".shorten-link-container");
 const staticsContainer = document.querySelector(".statics-container");
+const errorMessage = document.querySelector(".err");
 
 //functions
 const removeHorizontallyCenterClass = function () {
@@ -21,10 +23,67 @@ const removeHorizontallyCenterClass = function () {
   }
 };
 
+const showErrorMessage = function (err) {
+  shortLinkInput.classList.add("error");
+  errorMessage.classList.remove("hidden");
+  errorMessage.textContent = `${err}`;
+
+  staticsContainer.style.padding = `7.625rem 1rem 7.3rem`;
+};
+
+const hideErrorMessage = function () {
+  shortLinkInput.classList.remove("error");
+  errorMessage.classList.add("hidden");
+  shortLinkForm.inputLink.value = "";
+  staticsContainer.style.padding = `6.625rem 1rem 7.3rem`;
+  shortLinkContainer.classList.remove("hidden");
+};
+
+const renderShortenUrl = function (state) {
+  const html = state
+    .map((el) => {
+      console.log(el);
+      return ` <!--Shorten Link-->
+       <div class="shorten-link-container__link">
+              <a 
+              href="${el.originalUrl}"
+              class="shorten-link-container__text">
+                ${el.originalUrl}
+              </a>
+
+              <a
+                href="${el.shortUrl}"
+                class="shorten-link-container__text shorten-link-container__text--shorten"
+              >
+                ${el.shortUrl}
+              </a>
+
+              <button class="primay-btn copy-btn">Copy</button>
+            </div>`;
+    })
+    .join("");
+
+  shortLinkContainer.innerHTML = "";
+
+  shortLinkContainer.insertAdjacentHTML("beforeend", html);
+};
+
+const renderSpinner = function () {
+  const html = `<div class="spinner">
+      <svg>
+        <use href="./images/icons.svg#icon-loader"></use>
+      </svg>
+    </div>`;
+
+  shortLinkContainer.innerHTML = "";
+
+  shortLinkContainer.insertAdjacentHTML("beforeend", html);
+};
+
 //important variables
 const eventArray = ["load", "resize"];
 const socialMediaIconHandleEvents = ["mouseover", "mouseout"];
-const url = "https://cleanuri.com/api/v1/shorten";
+const state = [];
 
 eventArray.forEach((ev) => {
   //remove horizontally center class
@@ -53,15 +112,6 @@ socialMediaIconHandleEvents.forEach((ev) => {
   handleMobileNavbar(ev);
 });
 
-//changing the propery of the statics container when the url is submitted
-shortLinkForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  staticsContainer.style.padding = `6.625rem 1rem 4.75rem`;
-
-  shortLinkContainer.classList.remove("hidden");
-});
-
 //handling the mobile menu
 header.addEventListener("click", function (e) {
   const menubar = e.target.closest(".menubar");
@@ -85,16 +135,43 @@ header.addEventListener("click", function (e) {
 });
 
 //shortening the url
-const short = function () {
-  const request = new XMLHttpRequest();
+const shortenUrl = async function (url) {
+  try {
+    const res = await fetch(`https://tinyurl.com/api-create.php?url=${url}`);
 
-  request.open("POST", `https://cleanuri.com/api/v1/shorten`);
+    //when there is incorrect url
+    if (!res.ok) throw new Error("Incorrect url");
 
-  request.send();
+    const data = await res.text();
 
-  request.addEventListener("load", function () {
-    const [data] = JSON.parse(this.responseText);
-
-    console.log(data);
-  });
+    return data;
+  } catch (err) {
+    throw err;
+  }
 };
+
+shortLinkForm.addEventListener("submit", async function (e) {
+  try {
+    e.preventDefault();
+
+    const inputLink = shortLinkForm.inputLink;
+
+    //when the input is null
+    if (inputLink.value === "") throw new Error("Please add a link");
+
+    //when there is no error
+    const originalUrl = inputLink.value.trim();
+
+    renderSpinner();
+
+    const shortUrl = await shortenUrl(originalUrl);
+
+    hideErrorMessage();
+
+    state.push({ originalUrl, shortUrl });
+
+    renderShortenUrl(state);
+  } catch (err) {
+    showErrorMessage(err.message);
+  }
+});
