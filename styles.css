@@ -858,14 +858,13 @@ header {
   .hero-img-container {
     height: 32rem;
     width: 35rem;
-    overflow-x: unset;
   }
 
   .hero-img {
-    max-width: 26rem;
+    max-width: 28rem;
     max-height: 21rem;
     top: 5rem;
-    right: 5rem;
+    right: -0.1rem;
   }
 
   .hero-content {
@@ -988,6 +987,10 @@ header {
 
   .hero-img {
     transform: scale(1.4);
+    max-width: 26rem;
+    max-height: 21rem;
+    top: 5rem;
+    right: 5rem;
   }
 }
 
