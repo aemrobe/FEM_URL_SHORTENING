@@ -12,6 +12,12 @@ const shortLinkContainer = document.querySelector(".shorten-link-container");
 const staticsContainer = document.querySelector(".statics-container");
 const errorMessage = document.querySelector(".err");
 
+//important variables
+const eventArray = ["load", "resize"];
+
+const socialMediaIconHandleEvents = ["mouseover", "mouseout"];
+let state = [];
+
 //functions
 const removeHorizontallyCenterClass = function () {
   const screenSize = window.innerWidth;
@@ -27,6 +33,7 @@ const showErrorMessage = function (err) {
   shortLinkInput.classList.add("error");
   errorMessage.classList.remove("hidden");
   errorMessage.textContent = `${err}`;
+  shortLinkContainer.classList.add("hidden");
 
   staticsContainer.style.padding = `7.625rem 1rem 7.3rem`;
 };
@@ -42,7 +49,6 @@ const hideErrorMessage = function () {
 const renderShortenUrl = function (state) {
   const html = state
     .map((el) => {
-      console.log(el);
       return ` <!--Shorten Link-->
        <div class="shorten-link-container__link">
               <a 
@@ -68,6 +74,53 @@ const renderShortenUrl = function (state) {
   shortLinkContainer.insertAdjacentHTML("beforeend", html);
 };
 
+const addToLocalStorage = function () {
+  localStorage.setItem("urls", JSON.stringify(state));
+};
+
+const clearFromLocalStorage = function () {
+  localStorage.clear("urls");
+};
+
+//getting the urls from the localstorage
+const init = function () {
+  const urls = localStorage.getItem("urls");
+
+  if (urls) {
+    state = JSON.parse(urls);
+  }
+};
+
+init();
+
+//copy The Shortened Link To Clipboard
+const copyTextToTheClipboard = function (text, copyBtn) {
+  navigator.clipboard
+    .writeText(text)
+    .then(function () {
+      //## when the copying action is successful ##
+
+      const copyBtns = document.querySelectorAll(".copy-btn");
+
+      //removing the class from the other copy elements
+      copyBtns.forEach((el) => {
+        el.classList.remove("copy-btn--black");
+        el.textContent = "Copy";
+      });
+
+      //add the class to the copy btn which is clicked
+      copyBtn.classList.add("copy-btn--black");
+      copyBtn.classList.remove("errorCopy");
+      copyBtn.textContent = "Copied";
+    })
+    .catch(function (err) {
+      //## when the copying action is unsuccessful ##
+
+      copyBtn.textContent = "Not copied!";
+      copyBtn.classList.add("errorCopy");
+    });
+};
+
 const renderSpinner = function () {
   const html = `<div class="spinner">
       <svg>
@@ -79,11 +132,6 @@ const renderSpinner = function () {
 
   shortLinkContainer.insertAdjacentHTML("beforeend", html);
 };
-
-//important variables
-const eventArray = ["load", "resize"];
-const socialMediaIconHandleEvents = ["mouseover", "mouseout"];
-const state = [];
 
 eventArray.forEach((ev) => {
   //remove horizontally center class
@@ -110,6 +158,18 @@ const handleMobileNavbar = function (ev) {
 
 socialMediaIconHandleEvents.forEach((ev) => {
   handleMobileNavbar(ev);
+});
+
+//executing the copytexttotheclipboard function when the copy btn is clicked
+shortLinkContainer.addEventListener("click", function (e) {
+  const copyBtn = e.target.closest(".copy-btn");
+
+  //returning when the user clicks outside of the copy button
+  if (!copyBtn) return;
+
+  const shortenedLink = copyBtn.previousElementSibling.textContent.trim();
+
+  copyTextToTheClipboard(shortenedLink, copyBtn);
 });
 
 //handling the mobile menu
@@ -169,6 +229,8 @@ shortLinkForm.addEventListener("submit", async function (e) {
     hideErrorMessage();
 
     state.push({ originalUrl, shortUrl });
+
+    addToLocalStorage();
 
     renderShortenUrl(state);
   } catch (err) {

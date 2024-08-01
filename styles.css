@@ -1017,3 +1017,7 @@ header {
 .error {
   border: 2px solid red;
 }
+
+.errorCopy {
+  background-color: var(--red);
+}
